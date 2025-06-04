@@ -68,7 +68,7 @@ clear;close all;clc;
         lamda_2        =10; %50;
         Beta_1         =6;
         ks             =100;
-        N = 3; %3
+        N = 5; %3
     %% Initial conditions
         chi=0;
         cap_gamma{1}=10000*eye(N);
@@ -108,7 +108,7 @@ clear;close all;clc;
              %    + cos(2.4*t(i))*sin(2.4*t(i))^3);
             for j = 1:Nf
                 % random phase for diversity
-                noise(i) = noise(i) + 50*sin(freqs(j)*t(i)+rand);
+                noise(i) = noise(i) + 100*sin(freqs(j)*t(i)+rand);
             end
              
         end
@@ -223,10 +223,12 @@ clear;close all;clc;
         %     0 0 0 0 0 2*z{i}(6)*(z{i}(10)^2) 0 0 0 2*(z{i}(6)^2)*z{i}(10) 0 0; ...
         %     0 0 0 0 0 2*z{i}(6)*(z{i}(11)^2) 0 0 0 0 2*(z{i}(6)^2)*z{i}(11) 0; ...
         %     0 0 0 0 0 2*z{i}(6)*(z{i}(12)^2) 0 0 0 0 0 2*(z{i}(6)^2)*z{i}(12)];  
-        phi_z=[z{i}(1)*z{i}(1) z{i}(2)*z{i}(2) z{i}(3)*z{i}(3)...
+        phi_z=[z{i}(1)*z{i}(1) z{i}(1)*z{i}(2) z{i}(2)*z{i}(2) z{i}(2)*z{i}(3) z{i}(3)*z{i}(3)...
          ]';
-         grad_phi_z = [2*z{i}(1) 0 0 0 0 0 0 0 0 0 0 0; ...
+         grad_phi_z = [2*z{i}(1) 0 0 0 0 0 0 0 0 0 0 0;
+            z{i}(2) z{i}(1) 0 0 0 0 0 0 0 0 0 0;
             0 2*z{i}(2) 0 0 0 0 0 0 0 0 0 0;
+            0 z{i}(3) z{i}(2) 0 0 0 0 0 0 0 0 0;
              0 0 2*z{i}(3) 0 0 0 0 0 0 0 0 0];
         %% Cost function
         V_z(i)=W_c{i}'*phi_z;
